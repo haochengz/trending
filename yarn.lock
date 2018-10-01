@@ -6774,6 +6774,13 @@ react-native-iphone-x-helper@^1.0.2:
   version "1.2.0"
   resolved "http://registry.npm.taobao.org/react-native-iphone-x-helper/download/react-native-iphone-x-helper-1.2.0.tgz#9f8a376eb00bc712115abff4420318a0063fa796"
 
+react-native-tab-navigator@^0.3.4:
+  version "0.3.4"
+  resolved "http://registry.npm.taobao.org/react-native-tab-navigator/download/react-native-tab-navigator-0.3.4.tgz#54a18f1ad06a09d4a0de81ff00416bc1b760c960"
+  dependencies:
+    immutable "^3.8.1"
+    prop-types "^15.5.10"
+
 react-native@0.57.1:
   version "0.57.1"
   resolved "http://registry.npm.taobao.org/react-native/download/react-native-0.57.1.tgz#a8bffeac13e200b95bbebd11f7131570902e1e74"
