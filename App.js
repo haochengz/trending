@@ -7,18 +7,16 @@ import {
 } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
 
-class HomeScreen extends React.Component {
+import HomeScreen from './component/screen/home';
+
+class HomeScreenNav extends React.Component {
   render() {
     return (
       <View style={{
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
       }}>
-        <Text>Home Screen</Text>
-        <Button
-          title="Go to details"
-          onPress={() => this.props.navigation.navigate('Details')}
+        <HomeScreen
+          navigation={this.props.navigation}
         />
       </View>
     );
@@ -81,7 +79,7 @@ class DetailsScreen extends React.Component {
 
 const Stack = createBottomTabNavigator(
   {
-    Home: HomeScreen,
+    Home: HomeScreenNav,
     Trending: TrendingScreen,
     SearchScreen: SearchScreen,
     Details: DetailsScreen
