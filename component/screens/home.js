@@ -9,6 +9,23 @@ import {
 } from 'react-native';
 
 export default class HomeScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: {
+        name: 'un-defined'
+      }
+    };
+  }
+
+  async onLoad() {
+    const data = await fetch('http://rap2api.taobao.org/app/mock/86719/exam/object');
+    const result = data.json()
+    console.log(result, result.name)
+    this.setState({
+      data: {...data.data}
+    });
+  }
 
   render() {
     return (
@@ -24,6 +41,11 @@ export default class HomeScreen extends React.Component {
           renderItem={({item}) => (
             <View>
               <Text style={styles.item}>{ item.name }</Text>
+              <Text style={styles.item}
+                onPress={() => this.onLoad()}
+              >
+                {this.state.data.name}
+              </Text>
               <Button
                 key={item.name}
                 style={styles.btn}

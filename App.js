@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
 
-import HomeScreen from './component/screen/home';
+import HomeScreen from './component/screens/home';
 
 class HomeScreenNav extends React.Component {
   render() {
