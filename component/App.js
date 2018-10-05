@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
 
-import HomeScreen from './component/screens/home';
+import HomeScreen from './screens/home';
 
 class HomeScreenNav extends React.Component {
   render() {
@@ -77,7 +77,7 @@ class DetailsScreen extends React.Component {
   }
 }
 
-const Stack = createBottomTabNavigator(
+const HomeStack = createBottomTabNavigator(
   {
     Home: HomeScreenNav,
     Trending: TrendingScreen,
@@ -89,8 +89,8 @@ const Stack = createBottomTabNavigator(
   }
 );
 
-export default class App extends React.Component {
+export default class Home extends React.Component {
   render() {
-    return <Stack />;
+    return <HomeStack />;
   }
 }

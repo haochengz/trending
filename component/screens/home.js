@@ -18,15 +18,6 @@ export default class HomeScreen extends React.Component {
     };
   }
 
-  async onLoad() {
-    const data = await fetch('http://rap2api.taobao.org/app/mock/86719/exam/object');
-    const result = data.json()
-    console.log(result, result.name)
-    this.setState({
-      data: {...data.data}
-    });
-  }
-
   render() {
     return (
       <View style={styles.container}>
@@ -42,7 +33,6 @@ export default class HomeScreen extends React.Component {
             <View>
               <Text style={styles.item}>{ item.name }</Text>
               <Text style={styles.item}
-                onPress={() => this.onLoad()}
               >
                 {this.state.data.name}
               </Text>
