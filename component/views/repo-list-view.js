@@ -45,7 +45,7 @@ export default class RepoListView extends React.Component {
     return (
       <FlatList
         data={this.state.data}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item.clone_url}
         renderItem={({item}) => <RepoCellView repo={item} />}
       />
     );

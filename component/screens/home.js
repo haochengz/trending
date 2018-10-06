@@ -7,6 +7,7 @@ import {
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 
 import RepoListView from '../views/repo-list-view';
+import { BGC, SFC, FC } from '../common/theme';
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -21,10 +22,17 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ScrollableTabView>
-          <RepoListView tabLabel="react"></RepoListView>
-          <RepoListView tabLabel="node"></RepoListView>
-          <RepoListView tabLabel="koa"></RepoListView>
+        <ScrollableTabView
+          style={styles.repoList}
+          initialPage={1}
+          tabBarBackgroundColor={BGC}
+          tabBarActiveTextColor={FC}
+          tabBarInactiveTextColor={SFC}
+          tabBarUnderlineStyle={{backgroundColor: FC}}
+        >
+          <RepoListView style={styles.repoTab} tabLabel="react"></RepoListView>
+          <RepoListView style={styles.repoTab} tabLabel="node"></RepoListView>
+          <RepoListView style={styles.repoTab} tabLabel="koa"></RepoListView>
         </ScrollableTabView>
       </View>
     );
@@ -34,16 +42,16 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 22,
-    paddingLeft: 5,
-    paddingRight: 5
+    paddingTop: 20,
+    backgroundColor: BGC
   },
-  item: {
+  repoList: {
+    marginTop: 2,
+    backgroundColor: 'white'
+  },
+  repoTab: {
+    flex: 1,
     padding: 10,
-    fontSize: 18,
-    height: 44
-  },
-  btn: {
-    fontSize: 14
+    backgroundColor: 'rgba(0,0,0,0.01)'
   }
 });

@@ -8,6 +8,7 @@ import {
 import { createBottomTabNavigator } from 'react-navigation';
 
 import HomeScreen from './screens/home';
+import BGC from './common/theme';
 
 class HomeScreenNav extends React.Component {
   render() {
@@ -85,7 +86,7 @@ const HomeStack = createBottomTabNavigator(
     Details: DetailsScreen
   },
   {
-    initialRouteName: 'Home'
+    initialRouteName: 'Home',
   }
 );
 
