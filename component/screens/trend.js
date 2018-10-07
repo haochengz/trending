@@ -9,7 +9,7 @@ import ScrollableTabView from 'react-native-scrollable-tab-view';
 import RepoListView from '../views/repo-list-view';
 import { BGC, SFC, FC } from '../common/theme';
 
-export default class HomeScreen extends React.Component {
+export default class TrendScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

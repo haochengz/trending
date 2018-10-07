@@ -8,24 +8,10 @@ import {
 } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
 
-import HomeScreen from './screens/home';
+import TrendScreen from './screens/trend';
 import {BGC, FC, SFC} from './common/theme';
 
 class HomeScreenNav extends React.Component {
-  render() {
-    return (
-      <View style={{
-        flex: 1,
-      }}>
-        <HomeScreen
-          navigation={this.props.navigation}
-        />
-      </View>
-    );
-  }
-}
-
-class TrendingScreen extends React.Component {
   render() {
     return (
       <View style={{
@@ -37,6 +23,20 @@ class TrendingScreen extends React.Component {
         <Button
           title="Go to details"
           onPress={() => this.props.navigation.navigate('Details')}
+        />
+      </View>
+    );
+  }
+}
+
+class TrendingScreen extends React.Component {
+  render() {
+    return (
+      <View style={{
+        flex: 1,
+      }}>
+        <TrendScreen
+          navigation={this.props.navigation}
         />
       </View>
     );
