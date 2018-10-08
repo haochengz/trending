@@ -24,11 +24,14 @@ export default class TrendScreen extends React.Component {
       <View style={styles.container}>
         <ScrollableTabView
           style={styles.repoList}
-          initialPage={1}
+          initialPage={0}
           tabBarBackgroundColor={BGC}
           tabBarActiveTextColor={FC}
           tabBarInactiveTextColor={SFC}
           tabBarUnderlineStyle={{backgroundColor: FC}}
+          tabBarTextStyle={{
+            fontSize: 18
+          }}
         >
           <RepoListView style={styles.repoTab} tabLabel="react"></RepoListView>
           <RepoListView style={styles.repoTab} tabLabel="node"></RepoListView>
