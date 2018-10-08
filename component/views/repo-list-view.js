@@ -1,7 +1,7 @@
 
 import React from 'react';
 import {
-  FlatList
+  FlatList,
 } from 'react-native';
 
 import RepoCellView from './repo-cell-view';
@@ -10,7 +10,8 @@ export default class RepoListView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: []
+      data: [],
+      refreshing: false
     };
   }
 
@@ -27,6 +28,9 @@ export default class RepoListView extends React.Component {
 
   loadData() {
     let url = this.generateUrl(this.props.tabLabel);
+    this.setState({
+      refreshing: true
+    });
     return new Promise((resolve, reject) => {
       fetch(url, {
         method: 'GET',
@@ -36,9 +40,24 @@ export default class RepoListView extends React.Component {
         }
       })
         .then(response => response.json())
+        .then(result => {
+          this.setState({
+            refreshing: false
+          });
+          return result;
+        })
         .then(resolve)
-        .catch(error => reject(error));
+        .catch(error => {
+          this.setState({
+            refreshing: false
+          });
+          reject(error);
+        });
     });
+  }
+
+  refresh() {
+    this.loadData();
   }
 
   render() {
@@ -47,6 +66,8 @@ export default class RepoListView extends React.Component {
         data={this.state.data}
         keyExtractor={item => item.clone_url}
         renderItem={({item}) => <RepoCellView repo={item} />}
+        refreshing={this.state.refreshing}
+        onRefresh={() => this.refresh()}
       />
     );
   }
