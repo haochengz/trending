@@ -4,6 +4,7 @@ import {
   Text, View, SectionList, StyleSheet, Switch
 } from 'react-native';
 
+import {BGC} from '../../common/theme';
 import TagDao from '../../common/dao/tag-dao';
 const tagDao = new TagDao();
 import SubscribeDao from '../../common/dao/subscribe-dao';
@@ -87,7 +88,8 @@ const styles = StyleSheet.create({
   itemText: {
     padding: 10,
     fontSize: 18,
-    height: 44
+    height: 44,
+    color: BGC
   },
   itemSwitch: {
     flex: 1,
