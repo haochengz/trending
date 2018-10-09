@@ -2,12 +2,15 @@
 import React from 'react';
 import {
   View,
+  Text,
   StyleSheet,
 } from 'react-native';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 
 import RepoListView from '../views/repo-list-view';
 import { BGC, SFC, FC } from '../common/theme';
+import SubscribeDao from '../common/dao/subscribe-dao';
+const subscribeDao = new SubscribeDao();
 
 export default class TrendScreen extends React.Component {
   constructor(props) {
@@ -15,11 +18,30 @@ export default class TrendScreen extends React.Component {
     this.state = {
       data: {
         name: 'un-defined'
-      }
+      },
+      subscribe: {java: false}
     };
   }
 
+  async componentDidMount() {
+    const subscribe = await subscribeDao.getSubs();
+    this.setState({
+      subscribe: subscribe
+    });
+  }
+
+  fetchTabs() {
+    const tabs = [];
+    for(let tab in this.state.subscribe) {
+      if(this.state.subscribe[tab]) {
+        tabs.push(<RepoListView style={styles.repoTab} tabLabel={tab} key={tab}/>);
+      }
+    }
+    return tabs;
+  }
+
   render() {
+    const tabs = this.fetchTabs();
     return (
       <View style={styles.container}>
         <ScrollableTabView
@@ -33,9 +55,7 @@ export default class TrendScreen extends React.Component {
             fontSize: 18
           }}
         >
-          <RepoListView style={styles.repoTab} tabLabel="react"></RepoListView>
-          <RepoListView style={styles.repoTab} tabLabel="node"></RepoListView>
-          <RepoListView style={styles.repoTab} tabLabel="koa"></RepoListView>
+          {tabs.length > 0 ? tabs : <Text tabLabel=""></Text>}
         </ScrollableTabView>
       </View>
     );
