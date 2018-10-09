@@ -24,6 +24,16 @@ export default class TrendScreen extends React.Component {
   }
 
   async componentDidMount() {
+    await this.updateSubs();
+    this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        this.updateSubs();
+      }
+    );
+  }
+
+  async updateSubs() {
     const subscribe = await subscribeDao.getSubs();
     this.setState({
       subscribe: subscribe
@@ -46,6 +56,8 @@ export default class TrendScreen extends React.Component {
       <View style={styles.container}>
         <ScrollableTabView
           style={styles.repoList}
+          locked={false}
+          tabBarPosition={'top'}
           initialPage={0}
           tabBarBackgroundColor={BGC}
           tabBarActiveTextColor={FC}
