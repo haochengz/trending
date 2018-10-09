@@ -6,21 +6,36 @@ import {
 
 import TagDao from '../../common/dao/tag-dao';
 const tagDao = new TagDao();
+import SubscribeDao from '../../common/dao/subscribe-dao';
+const subscribeDao = new SubscribeDao();
 
 export default class TagSetupPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sectionLoad: false,
-      sections: tagDao.getDefault()
+      sections: tagDao.getDefault(),
+      subscribes: subscribeDao.getDefault()
     };
   }
 
   async componentDidMount() {
     const sections = await tagDao.getTags();
+    const subscribes = await subscribeDao.getSubs();
     this.setState({
       sections: sections,
-      sectionLoad: true
+      subscribes: subscribes
+    });
+  }
+
+  componentWillUnmount() {
+    subscribeDao.setSubs(this.state.subscribes);
+  }
+
+  toggleItem(item, v) {
+    const subs = this.state.subscribes;
+    subs[item] = v;
+    this.setState({
+      subscribes: subs
     });
   }
 
@@ -33,7 +48,10 @@ export default class TagSetupPage extends React.Component {
             <View style={styles.itemContainer}>
               <Text style={styles.itemText}>{item}</Text>
               <View style={styles.itemSwitch}>
-                <Switch />
+                <Switch
+                  value={this.state.subscribes[item]}
+                  onValueChange={this.toggleItem.bind(this, item)}
+                />
               </View>
             </View>
           )}

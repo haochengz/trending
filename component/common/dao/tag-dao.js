@@ -38,7 +38,7 @@ export default class TagDao {
   }
 
   async setTags(tags) {
-    await AsyncStorage.setItem('@tag:set', tags);
+    await AsyncStorage.setItem('@tag:set', JSON.stringify(tags));
   }
 
   // async addTag(tag, section){}
