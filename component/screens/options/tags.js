@@ -34,7 +34,11 @@ export default class TagSetupPage extends React.Component {
 
   toggleItem(item, v) {
     const subs = this.state.subscribes;
-    subs[item] = v;
+    if(!subs[item]) {
+      subs[item] = {available: false};
+    }
+    subs[item].available = v;
+    subs[item].pos = 0;
     this.setState({
       subscribes: subs
     });
@@ -50,7 +54,7 @@ export default class TagSetupPage extends React.Component {
               <Text style={styles.itemText}>{item}</Text>
               <View style={styles.itemSwitch}>
                 <Switch
-                  value={this.state.subscribes[item]}
+                  value={this.state.subscribes[item] && this.state.subscribes[item].available}
                   onValueChange={this.toggleItem.bind(this, item)}
                 />
               </View>

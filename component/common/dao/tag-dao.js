@@ -7,7 +7,7 @@ export default class TagDao {
   constructor() {
     this.defaultSet = [
       {title: 'languages', data: ['Java', 'Javascript', 'Python']},
-      {title: 'frameworks', data: ['Spring', 'Angular', 'Django']},
+      {title: 'frameworks', data: ['Spring', 'Angular', 'Django', 'React']},
       {title: 'tools', data: ['Atom', 'Git', 'Sublime']}
     ];
     this.setDefault = false;

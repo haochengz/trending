@@ -43,7 +43,7 @@ export default class TrendScreen extends React.Component {
   fetchTabs() {
     const tabs = [];
     for(let tab in this.state.subscribe) {
-      if(this.state.subscribe[tab]) {
+      if(this.state.subscribe[tab].available) {
         tabs.push(<RepoListView style={styles.repoTab} tabLabel={tab} key={tab}/>);
       }
     }

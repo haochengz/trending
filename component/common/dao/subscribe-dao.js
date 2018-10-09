@@ -6,12 +6,12 @@ import {
 export default class SubscribeDao {
   constructor() {
     this.defaultSet = {
-      React: true,
-      Python: true,
-      Javascript: true,
-      Java: false,
-      Spring: false,
-      Scheme: false
+      React: {available: true, pos: 0},
+      Python: {available: true, pos: 2},
+      Javascript: {available: true, pos: 1},
+      Java: {available: false},
+      Spring: {available: false},
+      Scheme: {available: false}
     };
     this.setDefault = false;
   }
@@ -42,5 +42,6 @@ export default class SubscribeDao {
 
   async setSubs(subs) {
     await AsyncStorage.setItem('@sub:set', JSON.stringify(subs));
+    await AsyncStorage.setItem('@sub:prestine', JSON.stringify(false));
   }
 }
