@@ -9,6 +9,7 @@ import {
 import { createBottomTabNavigator } from 'react-navigation';
 
 import TrendScreen from './screens/trend';
+import DetailStack from './screens/detail';
 import {BGC, FC, SFC} from './common/theme';
 
 class HomeScreenNav extends React.Component {
@@ -29,19 +30,19 @@ class HomeScreenNav extends React.Component {
   }
 }
 
-class TrendingScreen extends React.Component {
-  render() {
-    return (
-      <View style={{
-        flex: 1,
-      }}>
-        <TrendScreen
-          navigation={this.props.navigation}
-        />
-      </View>
-    );
-  }
-}
+// class TrendingScreen extends React.Component {
+//   render() {
+//     return (
+//       <View style={{
+//         flex: 1,
+//       }}>
+//         <TrendScreen
+//           navigation={this.props.navigation}
+//         />
+//       </View>
+//     );
+//   }
+// }
 
 class SearchScreen extends React.Component {
   render() {
@@ -61,24 +62,6 @@ class SearchScreen extends React.Component {
   }
 }
 
-class DetailsScreen extends React.Component {
-  render() {
-    return (
-      <View style={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}>
-        <Text>Details Screen</Text>
-        <Button
-          title="Go to Home"
-          onPress={() => this.props.navigation.navigate('Home')}
-        />
-      </View>
-    );
-  }
-}
-
 const HomeStack = createBottomTabNavigator(
   {
     Home: {
@@ -88,7 +71,7 @@ const HomeStack = createBottomTabNavigator(
         require('../asset/icon/iconmonstr-home-7-240.png'))
     },
     Trending: {
-      screen: TrendingScreen,
+      screen: TrendScreen,
       navigationOptions: screenNavigationOptions('TREND',
         require('../asset/icon/iconmonstr-whats-hot-1-240.png'),
         require('../asset/icon/iconmonstr-whats-hot-2-240.png'))
@@ -100,7 +83,7 @@ const HomeStack = createBottomTabNavigator(
         require('../asset/icon/iconmonstr-star-5-240.png'))
     },
     Details: {
-      screen: DetailsScreen,
+      screen: DetailStack,
       navigationOptions: screenNavigationOptions('DETAIL',
         require('../asset/icon/iconmonstr-menu-5-240.png'),
         require('../asset/icon/iconmonstr-menu-6-240.png'))
