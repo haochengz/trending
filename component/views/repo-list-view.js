@@ -19,11 +19,12 @@ export default class RepoListView extends React.Component {
     return `https://api.github.com/search/repositories?q=${keyword}&sort=stars&order=desc`;
   }
 
-  async componentDidMount() {
-    const data = await this.loadData();
-    this.setState({
-      data: data.items
-    });
+  componentWillUnmount() {
+    this.isCancelled = true;
+  }
+
+  componentDidMount() {
+    this.refresh();
   }
 
   loadData() {
@@ -40,12 +41,6 @@ export default class RepoListView extends React.Component {
         }
       })
         .then(response => response.json())
-        .then(result => {
-          this.setState({
-            refreshing: false
-          });
-          return result;
-        })
         .then(resolve)
         .catch(error => {
           this.setState({
@@ -56,8 +51,12 @@ export default class RepoListView extends React.Component {
     });
   }
 
-  refresh() {
-    this.loadData();
+  async refresh() {
+    const data = await this.loadData();
+    !this.isCancelled && this.setState({
+      data: data.items,
+      refreshing: false
+    });
   }
 
   render() {

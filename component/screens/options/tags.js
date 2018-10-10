@@ -14,33 +14,43 @@ export default class TagSetupPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sections: tagDao.getDefault(),
-      subscribes: subscribeDao.getDefault()
+      sections: [{title: 'languages', data: ['java']}],
+      subscribes: {java: {name: 'java', available: 'false'}},
+      order: ['java']
     };
   }
 
   async componentDidMount() {
     const sections = await tagDao.getTags();
     const subscribes = await subscribeDao.getSubs();
+    const order = await subscribeDao.getOrder();
     this.setState({
       sections: sections,
-      subscribes: subscribes
+      subscribes: subscribes,
+      order: order
     });
   }
 
   componentWillUnmount() {
     subscribeDao.setSubs(this.state.subscribes);
+    subscribeDao.setOrder(this.state.order);
   }
 
   toggleItem(item, v) {
     const subs = this.state.subscribes;
+    let order = this.state.order;
     if(!subs[item]) {
-      subs[item] = {available: false};
+      subs[item] = {name: item, available: false};
     }
     subs[item].available = v;
-    subs[item].pos = 0;
+    if(v) {
+      order.push(item);
+    } else {
+      order = order.filter(x => x !== item);
+    }
     this.setState({
-      subscribes: subs
+      subscribes: subs,
+      order: order
     });
   }
 

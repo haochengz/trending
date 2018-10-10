@@ -16,10 +16,8 @@ export default class TrendScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: {
-        name: 'un-defined'
-      },
-      subscribe: {java: false}
+      subscribe: {java: false},
+      order: ['java']
     };
   }
 
@@ -35,19 +33,21 @@ export default class TrendScreen extends React.Component {
 
   async updateSubs() {
     const subscribe = await subscribeDao.getSubs();
+    const order = await subscribeDao.getOrder();
     this.setState({
-      subscribe: subscribe
+      subscribe: subscribe,
+      order: order
     });
   }
 
   fetchTabs() {
-    const tabs = [];
-    for(let tab in this.state.subscribe) {
-      if(this.state.subscribe[tab].available) {
-        tabs.push(<RepoListView style={styles.repoTab} tabLabel={tab} key={tab}/>);
-      }
-    }
-    return tabs;
+    return this.state.order.map(tab => (
+      <RepoListView
+        style={styles.repoTab}
+        tabLabel={tab}
+        key={tab}
+      />
+    ));
   }
 
   render() {
