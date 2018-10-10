@@ -8,6 +8,7 @@ import {
 } from 'react-navigation';
 
 import TagSetupPage from './options/tags';
+import TagSortPage from './options/tag-sort.js';
 
 class DetailScreen extends React.Component {
 
@@ -23,6 +24,11 @@ class DetailScreen extends React.Component {
         >
           <Text>Subscribe tags</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate('TagSortPage')}
+        >
+          <Text>Sorting tags</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -30,5 +36,6 @@ class DetailScreen extends React.Component {
 
 export default createStackNavigator({
   Detail: DetailScreen,
-  TagSetupPage: TagSetupPage
+  TagSetupPage: TagSetupPage,
+  TagSortPage: TagSortPage
 });

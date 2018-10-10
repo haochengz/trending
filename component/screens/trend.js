@@ -16,28 +16,38 @@ export default class TrendScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: {
-        name: 'un-defined'
-      },
-      subscribe: {java: false}
+      subscribe: {java: false},
+      order: ['java']
     };
   }
 
   async componentDidMount() {
+    await this.updateSubs();
+    this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        this.updateSubs();
+      }
+    );
+  }
+
+  async updateSubs() {
     const subscribe = await subscribeDao.getSubs();
+    const order = await subscribeDao.getOrder();
     this.setState({
-      subscribe: subscribe
+      subscribe: subscribe,
+      order: order
     });
   }
 
   fetchTabs() {
-    const tabs = [];
-    for(let tab in this.state.subscribe) {
-      if(this.state.subscribe[tab]) {
-        tabs.push(<RepoListView style={styles.repoTab} tabLabel={tab} key={tab}/>);
-      }
-    }
-    return tabs;
+    return this.state.order.map(tab => (
+      <RepoListView
+        style={styles.repoTab}
+        tabLabel={tab}
+        key={tab}
+      />
+    ));
   }
 
   render() {
@@ -46,6 +56,8 @@ export default class TrendScreen extends React.Component {
       <View style={styles.container}>
         <ScrollableTabView
           style={styles.repoList}
+          locked={false}
+          tabBarPosition={'top'}
           initialPage={0}
           tabBarBackgroundColor={BGC}
           tabBarActiveTextColor={FC}

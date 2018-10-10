@@ -4,6 +4,7 @@ import {
   Text, View, SectionList, StyleSheet, Switch
 } from 'react-native';
 
+import {BGC} from '../../common/theme';
 import TagDao from '../../common/dao/tag-dao';
 const tagDao = new TagDao();
 import SubscribeDao from '../../common/dao/subscribe-dao';
@@ -13,29 +14,43 @@ export default class TagSetupPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sections: tagDao.getDefault(),
-      subscribes: subscribeDao.getDefault()
+      sections: [{title: 'languages', data: ['java']}],
+      subscribes: {java: {name: 'java', available: 'false'}},
+      order: ['java']
     };
   }
 
   async componentDidMount() {
     const sections = await tagDao.getTags();
     const subscribes = await subscribeDao.getSubs();
+    const order = await subscribeDao.getOrder();
     this.setState({
       sections: sections,
-      subscribes: subscribes
+      subscribes: subscribes,
+      order: order
     });
   }
 
   componentWillUnmount() {
     subscribeDao.setSubs(this.state.subscribes);
+    subscribeDao.setOrder(this.state.order);
   }
 
   toggleItem(item, v) {
     const subs = this.state.subscribes;
-    subs[item] = v;
+    let order = this.state.order;
+    if(!subs[item]) {
+      subs[item] = {name: item, available: false};
+    }
+    subs[item].available = v;
+    if(v) {
+      order.push(item);
+    } else {
+      order = order.filter(x => x !== item);
+    }
     this.setState({
-      subscribes: subs
+      subscribes: subs,
+      order: order
     });
   }
 
@@ -49,7 +64,7 @@ export default class TagSetupPage extends React.Component {
               <Text style={styles.itemText}>{item}</Text>
               <View style={styles.itemSwitch}>
                 <Switch
-                  value={this.state.subscribes[item]}
+                  value={this.state.subscribes[item] && this.state.subscribes[item].available}
                   onValueChange={this.toggleItem.bind(this, item)}
                 />
               </View>
@@ -87,7 +102,8 @@ const styles = StyleSheet.create({
   itemText: {
     padding: 10,
     fontSize: 18,
-    height: 44
+    height: 44,
+    color: BGC
   },
   itemSwitch: {
     flex: 1,

@@ -30,20 +30,6 @@ class HomeScreenNav extends React.Component {
   }
 }
 
-// class TrendingScreen extends React.Component {
-//   render() {
-//     return (
-//       <View style={{
-//         flex: 1,
-//       }}>
-//         <TrendScreen
-//           navigation={this.props.navigation}
-//         />
-//       </View>
-//     );
-//   }
-// }
-
 class SearchScreen extends React.Component {
   render() {
     return (

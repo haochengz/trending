@@ -57,3 +57,7 @@ buck-out/
 
 # Sublime project config
 *.sublime-*
+
+# react-native build directory
+ios
+android
