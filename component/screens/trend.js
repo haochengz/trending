@@ -2,10 +2,12 @@
 import React from 'react';
 import {
   View,
-  Text,
   StyleSheet,
+  Dimensions
 } from 'react-native';
-import ScrollableTabView from 'react-native-scrollable-tab-view';
+import {
+  TabView, TabBar
+} from 'react-native-tab-view';
 
 import RepoListView from '../views/repo-list-view';
 import { BGC, SFC, FC } from '../common/theme';
@@ -16,9 +18,28 @@ export default class TrendScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      index: 0,
+      routes: [{key: 'java', title: 'Java'}],
       subscribe: {java: false},
       order: ['java']
     };
+  }
+
+  _renderTabBar(props) {
+    return <TabBar
+      {...props}
+      scrollEnabled
+      style={styles.tabbar}
+      indicatorStyle={styles.indicator}
+    />;
+  }
+
+  _renderScene({route}) {
+    return <RepoListView
+      style={styles.repoTab}
+      tabLabel={route}
+      key={route}
+    />;
   }
 
   async componentDidMount() {
@@ -34,41 +55,35 @@ export default class TrendScreen extends React.Component {
   async updateSubs() {
     const subscribe = await subscribeDao.getSubs();
     const order = await subscribeDao.getOrder();
+    const tabs = this.fetchTabs(order);
     this.setState({
       subscribe: subscribe,
-      order: order
+      order: order,
+      routes: tabs
     });
   }
 
-  fetchTabs() {
-    return this.state.order.map(tab => (
-      <RepoListView
-        style={styles.repoTab}
-        tabLabel={tab}
-        key={tab}
-      />
-    ));
+  fetchTabs(order) {
+    return order.map(tab => ({
+      key: tab,
+      title: tab
+    }));
   }
 
   render() {
-    const tabs = this.fetchTabs();
     return (
       <View style={styles.container}>
-        <ScrollableTabView
+        <TabView
           style={styles.repoList}
-          locked={false}
-          tabBarPosition={'top'}
-          initialPage={0}
-          tabBarBackgroundColor={BGC}
-          tabBarActiveTextColor={FC}
-          tabBarInactiveTextColor={SFC}
-          tabBarUnderlineStyle={{backgroundColor: FC}}
-          tabBarTextStyle={{
-            fontSize: 18
+          navigationState={this.state}
+          renderScene={this._renderScene}
+          onIndexChange={index => this.setState({index})}
+          initialLayout={{
+            width: Dimensions.get('window').width,
+            height: 300
           }}
-        >
-          {tabs.length > 0 ? tabs : <Text tabLabel=""></Text>}
-        </ScrollableTabView>
+          renderTabBar={this._renderTabBar}
+        />
       </View>
     );
   }
@@ -88,5 +103,12 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     backgroundColor: 'rgba(0,0,0,0.01)'
+  },
+  tabbar: {
+    backgroundColor: BGC,
+    color: SFC
+  },
+  indicator: {
+    backgroundColor: FC
   }
 });

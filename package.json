@@ -17,6 +17,7 @@
     "react-native": "0.57.1",
     "react-native-scrollable-tab-view": "^0.8.0",
     "react-native-sortable-listview": "^0.2.8",
+    "react-native-tab-view": "^1.2.0",
     "react-navigation": "^2.17.0"
   },
   "devDependencies": {

@@ -8,7 +8,7 @@ import {
 } from 'react-navigation';
 
 import TagSetupPage from './options/tags';
-import TagSortPage from './options/tag-sort.js';
+import TagSortPage from './options/tag-sort';
 
 class DetailScreen extends React.Component {
 
@@ -37,5 +37,5 @@ class DetailScreen extends React.Component {
 export default createStackNavigator({
   Detail: DetailScreen,
   TagSetupPage: TagSetupPage,
-  TagSortPage: TagSortPage
+  TagSortPage: TagSortPage,
 });
