@@ -5,12 +5,15 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
+    "watch": "jest --watch",
     "storybook": "storybook start -p 7007"
   },
   "dependencies": {
     "@babel/core": "7.1.0",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/runtime": "^7.1.2",
     "babel-core": "7.0.0-bridge.0",
+    "babel-preset-react-native": "^4.0.1",
     "metro-react-native-babel-preset": "^0.47.0",
     "ramda": "^0.25.0",
     "react": "16.5.0",
@@ -30,8 +33,5 @@
     "@storybook/react-native": "^3.4.11",
     "@storybook/addon-actions": "^3.4.11",
     "@storybook/addon-links": "^3.4.11"
-  },
-  "jest": {
-    "preset": "react-native"
   }
 }
